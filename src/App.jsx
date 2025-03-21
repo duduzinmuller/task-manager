@@ -1,9 +1,9 @@
-import Tasks from "./components/Tasks"
-
 function App() {
-  const name = "tesr"
-  console.log(name)
-  return <Tasks />
+  return (
+    <div>
+      <h1 className="text-red-600">hello world</h1>
+    </div>
+  )
 }
 
 export default App

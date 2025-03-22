@@ -6,7 +6,3 @@ export const TasksSeparator = ({ title, icon }) => {
     </div>
   )
 }
-
-export const TasksSeparatorTitle = ({ title }) => {
-  return <p className="text-sm text-[#9A9C9F]">{title}</p>
-}

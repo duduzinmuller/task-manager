@@ -1,15 +1,16 @@
 import { useState } from "react"
-import Button from "./Button"
+import { toast } from "sonner"
+
 import {
   AddIcon,
-  TrashIcon,
-  SunIcon,
   CloudSunIcon,
   MoonIcon,
+  SunIcon,
+  TrashIcon,
 } from "../assets/icons"
 import TASKS from "../constants/tasks"
+import Button from "./Button"
 import TaskItem from "./TaskItem"
-import { toast } from "sonner"
 
 const Tasks = () => {
   const [tasks, setTasks] = useState(TASKS)

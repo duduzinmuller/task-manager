@@ -31,16 +31,16 @@ const TASKS = () => {
 
     {
       id: 5,
-      title: "Fazer sexo",
-      description: "Fazer sexo com a mulher",
+      title: "Jogar",
+      description: "Jogar GTA6",
       time: "evening",
       status: "not_started",
     },
 
     {
       id: 6,
-      title: "Gozar na cara",
-      description: "Gozar na cara da mulher",
+      title: "Dormir",
+      description: "Dormir para descansar",
       time: "evening",
       status: "not_started",
     },

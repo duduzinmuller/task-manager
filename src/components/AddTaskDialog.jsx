@@ -110,11 +110,7 @@ const AddTaskDialog = ({ isOpen, handleClose, handleSubmit }) => {
                 />
 
                 <div className="flex gap-3">
-                  <Button
-                    size="large"
-                    variant="secondary"
-                    onClick={handleClose}
-                  >
+                  <Button size="large" color="secondary" onClick={handleClose}>
                     Cancelar
                   </Button>
                   <Button size="large" onClick={handleSaveClick}>

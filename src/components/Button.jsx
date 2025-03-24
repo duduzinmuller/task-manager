@@ -15,10 +15,11 @@ const Button = ({
         primary: "bg-brand-primary text-white",
         ghost: "bg-transparent text-brand-dark-gray",
         secondary: "bg-brand-light-gray text-brand-dark-blue",
+        danger: "bg-brand-danger text-white",
       },
       size: {
         small: "py-1 text-xs",
-        large: "w-full py-2 text-sm",
+        large: "py-2 text-sm",
       },
       disabled: {
         true: "cursor-not-allowed opacity-50 hover:opacity-50",
@@ -42,7 +43,7 @@ const Button = ({
 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
-  color: PropTypes.oneOf(["primary", "ghost", "secondary"]),
+  color: PropTypes.oneOf(["primary", "ghost", "secondary", "danger"]),
   size: PropTypes.oneOf(["small", "large"]),
   className: PropTypes.string,
 }

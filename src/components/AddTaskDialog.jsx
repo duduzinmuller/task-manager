@@ -129,10 +129,16 @@ const AddTaskDialog = ({
                 />
 
                 <div className="flex gap-3">
-                  <Button size="large" color="secondary" onClick={handleClose}>
+                  <Button
+                    className="w-full"
+                    size="large"
+                    color="secondary"
+                    onClick={handleClose}
+                  >
                     Cancelar
                   </Button>
                   <Button
+                    className="w-full"
                     size="large"
                     onClick={handleSaveClick}
                     disabled={isLoading}

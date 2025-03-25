@@ -59,6 +59,15 @@ const AddTaskDialog = ({
     })
   }
 
+  const handleCancelClick = () => {
+    reset({
+      title: "",
+      time: "morning",
+      description: "",
+    })
+    handleClose()
+  }
+
   return (
     <CSSTransition
       nodeRef={nodeRef}
@@ -131,7 +140,7 @@ const AddTaskDialog = ({
                     className="w-full"
                     size="large"
                     color="secondary"
-                    onClick={handleClose}
+                    onClick={handleCancelClick}
                     type="button"
                   >
                     Cancelar

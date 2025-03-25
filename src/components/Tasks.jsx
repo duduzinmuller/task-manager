@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { useState } from "react"
 import { toast } from "sonner"
 
 import {
@@ -14,30 +15,22 @@ import TaskItem from "./TaskItem"
 import { TasksSeparator } from "./TasksSeparator"
 
 const Tasks = () => {
-  const [tasks, setTasks] = useState([])
-  const [AddTaskDialogIsOpen, setAddTaskDialogIsOpen] = useState(false)
-
-  useEffect(() => {
-    const fetchTasks = async () => {
+  const queryClient = useQueryClient()
+  const { data: tasks } = useQuery({
+    queryKey: "tasks",
+    queryFn: async () => {
       const response = await fetch("http://localhost:3000/tasks", {
         method: "GET",
       })
       const tasks = await response.json()
-      setTasks(tasks)
-    }
+      return tasks
+    },
+  })
+  const [AddTaskDialogIsOpen, setAddTaskDialogIsOpen] = useState(false)
 
-    fetchTasks()
-  }, [])
-
-  const morningsTasks = tasks.filter((task) => task.time === "morning")
-  const afternoonsTasks = tasks.filter((task) => task.time === "afternoon")
-  const eveningTasks = tasks.filter((task) => task.time === "evening")
-
-  const onDeleteTaskSuccess = async (taskId) => {
-    const newTasks = tasks.filter((task) => task.id !== taskId)
-    setTasks(newTasks)
-    toast.success("Tarefa deletada com succeso!")
-  }
+  const morningsTasks = tasks?.filter((task) => task.time === "morning")
+  const afternoonsTasks = tasks?.filter((task) => task.time === "afternoon")
+  const eveningTasks = tasks?.filter((task) => task.time === "evening")
 
   const handleTaskCheckboxClick = (taskId) => {
     const newTasks = tasks.map((task) => {
@@ -62,16 +55,7 @@ const Tasks = () => {
 
       return task
     })
-    setTasks(newTasks)
-  }
-
-  const onTaskSubmitSuccess = (task) => {
-    setTasks([...tasks, task])
-    toast.success("Tarefa adicionada com sucesso!")
-  }
-
-  const onTaskSubmitError = () => {
-    toast.error("Erro ao adicionar tarefa. Por favor, tente novamente.")
+    queryClient.setQueryData("tasks", newTasks)
   }
 
   return (
@@ -95,8 +79,6 @@ const Tasks = () => {
           <AddTaskDialog
             isOpen={AddTaskDialogIsOpen}
             handleClose={() => setAddTaskDialogIsOpen(false)}
-            onSubmitSuccess={onTaskSubmitSuccess}
-            onSubmitError={onTaskSubmitError}
           />
         </div>
       </div>
@@ -104,51 +86,48 @@ const Tasks = () => {
       <div className="rounded-xl bg-white p-6">
         <div className="space-y-3">
           <TasksSeparator title="Manha" icon={<SunIcon />} />
-          {morningsTasks.length === 0 && (
+          {morningsTasks?.length === 0 && (
             <p className="text-sm text-brand-text-gray">
               Nenhuma tarefa para a manhã
             </p>
           )}
-          {morningsTasks.map((task) => (
+          {morningsTasks?.map((task) => (
             <TaskItem
               key={task.id}
               task={task}
               handleCheckboxClick={handleTaskCheckboxClick}
-              onDeleteSuccess={onDeleteTaskSuccess}
             />
           ))}
         </div>
 
         <div className="my-6 space-y-3">
           <TasksSeparator title="Tarde" icon={<CloudSunIcon />} />
-          {afternoonsTasks.length === 0 && (
+          {afternoonsTasks?.length === 0 && (
             <p className="text-sm text-brand-text-gray">
               Nenhuma tarefa para a tarde
             </p>
           )}
-          {afternoonsTasks.map((task) => (
+          {afternoonsTasks?.map((task) => (
             <TaskItem
               key={task.id}
               task={task}
               handleCheckboxClick={handleTaskCheckboxClick}
-              onDeleteSuccess={onDeleteTaskSuccess}
             />
           ))}
         </div>
 
         <div className="space-y-3">
           <TasksSeparator title="Noite" icon={<MoonIcon />} />
-          {eveningTasks.length === 0 && (
+          {eveningTasks?.length === 0 && (
             <p className="text-sm text-brand-text-gray">
               Nenhuma tarefa para a noite
             </p>
           )}
-          {eveningTasks.map((task) => (
+          {eveningTasks?.map((task) => (
             <TaskItem
               key={task.id}
               task={task}
               handleCheckboxClick={handleTaskCheckboxClick}
-              onDeleteSuccess={onDeleteTaskSuccess}
             />
           ))}
         </div>

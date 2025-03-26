@@ -1,11 +1,11 @@
 {
   "tasks": [
     {
-      "id": "89ed06fd-61d5-4840-bee7-6a19b212e820",
-      "title": "Estudar o FSC",
+      "id": "01dba2bb-3bd2-4f39-a6e4-967ef8609f78",
+      "title": "Estudar",
       "time": "morning",
-      "description": "#SOU1%",
-      "status": "not_started"
+      "description": "Treinar",
+      "status": "done"
     }
   ]
 }

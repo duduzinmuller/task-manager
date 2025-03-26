@@ -130,7 +130,7 @@
   }
 
   body {
-    @apply bg-brand-background;
+    @apply bg-[#F8F8F8];
     font-family: "Poppins", sans-serif;
   }
 }

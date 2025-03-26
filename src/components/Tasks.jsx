@@ -1,25 +1,16 @@
 import { useQueryClient } from "@tanstack/react-query"
-import { useState } from "react"
 import { toast } from "sonner"
 
-import {
-  AddIcon,
-  CloudSunIcon,
-  MoonIcon,
-  SunIcon,
-  TrashIcon,
-} from "../assets/icons"
+import { CloudSunIcon, MoonIcon, SunIcon } from "../assets/icons"
 import { useGetTasks } from "../hooks/data/use-get-tasks"
-import AddTaskDialog from "./AddTaskDialog"
-import Button from "./Button"
+import { taskQueryKeys } from "../keys/queries"
+import Header from "./Header"
 import TaskItem from "./TaskItem"
 import { TasksSeparator } from "./TasksSeparator"
 
 const Tasks = () => {
   const queryClient = useQueryClient()
   const { data: tasks } = useGetTasks()
-
-  const [AddTaskDialogIsOpen, setAddTaskDialogIsOpen] = useState(false)
 
   const morningsTasks = tasks?.filter((task) => task.time === "morning")
   const afternoonsTasks = tasks?.filter((task) => task.time === "afternoon")
@@ -48,34 +39,12 @@ const Tasks = () => {
 
       return task
     })
-    queryClient.setQueryData("tasks", newTasks)
+    queryClient.setQueryData(taskQueryKeys.getAll(), newTasks)
   }
 
   return (
-    <div className="w-full space-y-6 bg-[#F8F8F8] px-8 py-16">
-      <div className="flex w-full justify-between">
-        <div>
-          <span className="text-xs font-semibold text-brand-primary">
-            Minhas Tarefas
-          </span>
-          <h2 className="text-xl font-semibold">Minhas Tarefas</h2>
-        </div>
-        <div className="flex items-center gap-3">
-          <Button color="ghost">
-            Limpar tarefas
-            <TrashIcon />
-          </Button>
-          <Button onClick={() => setAddTaskDialogIsOpen(true)}>
-            Nova tarefa
-            <AddIcon />
-          </Button>
-          <AddTaskDialog
-            isOpen={AddTaskDialogIsOpen}
-            handleClose={() => setAddTaskDialogIsOpen(false)}
-          />
-        </div>
-      </div>
-
+    <div className="w-full space-y-6 px-8 py-16">
+      <Header subtitle="Minhas tarefas" title="Minhas tarefas" />
       <div className="rounded-xl bg-white p-6">
         <div className="space-y-3">
           <TasksSeparator title="Manha" icon={<SunIcon />} />
